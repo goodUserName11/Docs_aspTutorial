@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Docs.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Docs.Data
@@ -9,5 +10,7 @@ namespace Docs.Data
             : base(options)
         {
         }
+
+        public DbSet<Doc> Documents { get; set; }
     }
 }

@@ -9,7 +9,7 @@
 <div class="d-flex justify-content-center align-content-center" style="width:150px; height:200px; background-color:whitesmoke; font-size:100px">
     <a style="text-decoration:none; color:black;" asp-action="Create">+</a>
 </div>
-<span style="font-weight:bold;">Blanc document</span>
+<span style="font-weight:bold;">Blank document</span>
 
 <hr />
 
@@ -20,7 +20,15 @@
             <div class="d-flex justify-content-center align-content-center" style="width:150px; height:200px; background-color:lightblue; font-size:100px">
                 <a style="text-decoration:none; color:black;" asp-action="Edit" asp-route-id="@item.Id">📄</a>
             </div>
-            <span style="font-weight:bold;">@item.Title</span>
+            <div class="btn-group">
+                <span class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@item.Title</span>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <button class="dropdown-item" type="button">Action</button>
+                    <button class="dropdown-item" type="button">Another action</button>
+                    <button class="dropdown-item" type="button">Something else here</button>
+                </div>
+            </div>
+
         </div>
     }
 </div>

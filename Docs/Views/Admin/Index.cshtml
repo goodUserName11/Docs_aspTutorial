@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Docs.Models.Doc>
+
+@{
+    ViewData["Title"] = "Administrator Page";
+}
+
+<h1>Administrator Page</h1>
+
+<ul class="list-group list-group-flush">
+    <li class="list-group-item">
+        <a class="page-link" asp-action="Users">Users</a>
+    </li>
+    <li class="list-group-item">
+        <a class="page-link" asp-action="Roles">Roles</a>
+    </li>
+</ul>

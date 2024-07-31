@@ -1,0 +1,23 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IdentityUser>;
+
+@{
+    ViewData["Title"] = "Roles List";
+}
+
+<h1>Users List</h1>
+<table class="table">
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>@user.Email</td>
+            <td>
+                <a class="btn btn-sm btn-primary" asp-action="EditUserRoles" asp-route-userid="@user.Id">Roles</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<div>
+    <a class="btn btn-light m-4" asp-action="Index">Back to Admin</a>
+</div>

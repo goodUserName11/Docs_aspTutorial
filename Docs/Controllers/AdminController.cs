@@ -72,5 +72,54 @@ namespace Docs.Controllers
             }
             return RedirectToAction("Roles");
         }
+
+        // GET: Admin/Users
+        public async Task<IActionResult> Users() 
+        {
+            return View(_userManager.Users.ToList());
+        }
+
+        // GET: Admin/EditUserRoles
+        public async Task<IActionResult> EditUserRoles(string userId)
+        {
+            IdentityUser user = await _userManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                var userRoles = await _userManager.GetRolesAsync(user);
+                var allRoles = _roleManager.Roles.ToList();
+                ChangeRoleViewModel model = new ChangeRoleViewModel
+                {
+                    UserId = user.Id,
+                    UserEmail = user.Email,
+                    UserRoles = userRoles,
+                    AllRoles = allRoles
+                };
+                return View(model);
+            }
+
+            return NotFound();
+        }
+
+        // POST: Admin/EditUserRoles
+        [HttpPost]
+        public async Task<IActionResult> EditUserRoles(string userId, List<string> roles)
+        {
+            IdentityUser user = await _userManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                var userRoles = await _userManager.GetRolesAsync(user);
+                var allRoles = _roleManager.Roles.ToList();
+                var addedRoles = roles.Except(userRoles);
+                var removedRoles = userRoles.Except(roles);
+
+                await _userManager.AddToRolesAsync(user, addedRoles);
+
+                await _userManager.RemoveFromRolesAsync(user, removedRoles);
+
+                return RedirectToAction("EditUserRoles", new { userid = user.Id });
+            }
+
+            return NotFound();
+        }
     }
 }

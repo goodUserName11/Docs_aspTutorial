@@ -31,5 +31,45 @@ namespace Docs.Controllers
         {
             return View();
         }
+
+        // GET: Admin/Roles
+        public async Task<IActionResult> Roles()
+        {
+            return View(_roleManager.Roles.ToList());
+        }
+
+        // POST: Admin/CreateRole
+        [HttpPost]
+        public async Task<IActionResult> CreateRole(string name)
+        {
+            if (!string.IsNullOrEmpty(name))
+            {
+                IdentityResult result = await _roleManager.CreateAsync(new IdentityRole(name));
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Roles");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
+            }
+            return RedirectToAction("Roles");
+        }
+
+        // GET: Admin/Delete/5
+        [HttpPost]
+        public async Task<IActionResult> DeleteRole(string id)
+        {
+            IdentityRole? role = await _roleManager.FindByIdAsync(id);
+            if (role != null)
+            {
+                IdentityResult result = await _roleManager.DeleteAsync(role);
+            }
+            return RedirectToAction("Roles");
+        }
     }
 }

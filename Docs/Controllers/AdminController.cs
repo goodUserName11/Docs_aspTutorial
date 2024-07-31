@@ -9,6 +9,7 @@ using Docs.Data;
 using Docs.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Docs.ViewModels;
 
 namespace Docs.Controllers
 {
@@ -60,7 +61,7 @@ namespace Docs.Controllers
             return RedirectToAction("Roles");
         }
 
-        // GET: Admin/Delete/5
+        // POST: Admin/DeleteRole/5
         [HttpPost]
         public async Task<IActionResult> DeleteRole(string id)
         {
